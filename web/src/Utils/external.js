@@ -79,6 +79,8 @@ export default function fetcingFactory (endpoint, params, id) {
             return editMusician(params, endpoint);
         case Types.endpoints.GET_PERSONAL_CONVERSATIONS:
             return getPersonalConversations(params, endpoint);
+        case Types.endpoints.SEND_MESSAGE:
+            return sendMessage(params, endpoint);
     }
 }
 
@@ -429,8 +431,19 @@ function getPersonalConversations(params, endpoint) {
     return fetch(API + endpoint, {
         method: "GET",
         headers: {
-            "Content-Tye" : "application/json",
+            "Content-Type" : "application/json",
             "Authorization" : "Bearer " + Cookies.get("Bearer")
         }
+    })
+}
+
+function sendMessage(params, endpoint) {
+    return fetch(API + endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + Cookies.get("Bearer")
+        },
+        body: params
     })
 }

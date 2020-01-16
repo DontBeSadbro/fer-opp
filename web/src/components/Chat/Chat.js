@@ -20,6 +20,7 @@ export default class Chat extends React.Component {
         }
 
         this.receiveConversation = this.receiveConversation.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,6 +30,12 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
+        this.getData();
+        console.log(this.state);
+        
+    }
+
+    getData() {
         fetcingFactory(endpoints.GET_PERSONAL_CONVERSATIONS).then(
             response => {
                 if (response.ok) {
@@ -40,16 +47,19 @@ export default class Chat extends React.Component {
         ).then(
             json => {
                 if (json) {
-                    this.setState({conversationList: json})
+                    if (this.state.conversationId) {
+                        this.setState({messages: json[this.state.conversationIndex].messages, conversationList: json})
+                    } else {
+                        this.setState({conversationList: json})
+                    }
                 } else {
                     this.setState({conversationList: []})
                 }
             }
         )
     }
-
-    receiveConversation(conversationIndex){
-        this.setState({messages: this.state.conversationList[conversationIndex].messages}, ()=> console.log(this.state.messages))
+    receiveConversation(conversationIndex, conversationId){
+        this.setState({messages: this.state.conversationList[conversationIndex].messages, conversationIndex: conversationIndex, conversationId : conversationId}, ()=> console.log(this.state.messages))
     }
 
     render() {
@@ -65,8 +75,8 @@ export default class Chat extends React.Component {
                     }
                 </Col>
                 <Col md = {6}>
-                {this.state.messages.length > 0?
-                    <MessagesView list = {this.state.messages}/>
+                {this.state.messages && this.state.messages.length > 0?
+                    <MessagesView list = {this.state.messages} id = {this.state.conversationId} updateConversation = {this.getData}/>
                     :
                     <div>
                      {

@@ -23,7 +23,8 @@ export default class ConversationsView extends React.Component {
                 let pictureUrl = element.pictureUrl;
                 let title = element.title
                 let messages = element.messages
-                return {participants, pictureUrl, title, messages}
+                let conversationId = element.conversationId
+                return {conversationId, participants, pictureUrl, title, messages}
             })
             this.setState({conversationList: helperList}, ()=> console.log(this.state))
        } else {
@@ -44,7 +45,7 @@ export default class ConversationsView extends React.Component {
                
                 
                 return (
-                    <Card onClick= {() => this.props.updateParent(index)} title={element.participants.join(", ")} headStyle = {{color: "white"}} style = {{cursor: "pointer", marginBottom: "5px", backgroundColor: "darkcyan", color: "white", fontWeight: "bold"}}>
+                    <Card onClick= {() => this.props.updateParent(index, element.conversationId)} title={element.participants.join(", ")} headStyle = {{color: "white"}} style = {{cursor: "pointer", marginBottom: "5px", backgroundColor: "darkcyan", color: "white", fontWeight: "bold"}}>
                         {element.messages && element.messages.length > 0 ?
                             <Card title = {element.messages[element.messages.length-1].sender.name} extra = {element.messages[element.messages.length-1].sentTime}>
                                 <Avatar src = {element.messages[element.messages.length-1].sender.pictureUrl} />

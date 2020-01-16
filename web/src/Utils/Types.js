@@ -32,7 +32,8 @@ export const endpoints = {
     SUBMIT_USER_POST: "/posts/create",
     SUBMIT_COMMENT: "/posts/",
     GET_MUSICIAN_OCASSION: "/musicians/show/occasions/",
-    EDIT_MUSICIAN: "/musicians/edit/"
+    EDIT_MUSICIAN: "/musicians/edit/",
+    GET_PERSONAL_CONVERSATIONS: "/conversations/get/personal"
     /*TO DO: ostali endpointi*/
 }
 

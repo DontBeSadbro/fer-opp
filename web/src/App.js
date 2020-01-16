@@ -25,6 +25,7 @@ import ModalClass from "./components/BasicComponents/Modal"
 import DisplayMusicianCalendar from './components/Profile/DIsplayMusicianCalendar';
 import EditGig from './components/Gigs/EditGig'
 import WelcomePage from "./components/WelcomePage/WelcomePage";
+import Chat from "./components/Chat/Chat";
 
 
 function App() {
@@ -115,6 +116,12 @@ function App() {
           )} />
           <Route path='/WelcomePage' exact component = {WelcomePage}/>
           <Route path='/' exact component = {WelcomePage}/>
+          <Route path='/chat' render = {() => (
+            isLoggedIn?
+            <Chat id = {Cookies.get("userId")} />
+            :
+            <ModalClass />
+          )} />
         </Switch>
       </div>
     </BrowserRouter>

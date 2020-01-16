@@ -77,6 +77,8 @@ export default function fetcingFactory (endpoint, params, id) {
             return getMusicianOcassion(params, endpoint);
         case Types.endpoints.EDIT_MUSICIAN:
             return editMusician(params, endpoint);
+        case Types.endpoints.GET_PERSONAL_CONVERSATIONS:
+            return getPersonalConversations(params, endpoint);
     }
 }
 
@@ -420,5 +422,15 @@ function editMusician(params, endpoint) {
             "Authorization" : "Bearer " + Cookies.get("Bearer")
         },
         body: params
+    })
+}
+
+function getPersonalConversations(params, endpoint) {
+    return fetch(API + endpoint, {
+        method: "GET",
+        headers: {
+            "Content-Tye" : "application/json",
+            "Authorization" : "Bearer " + Cookies.get("Bearer")
+        }
     })
 }

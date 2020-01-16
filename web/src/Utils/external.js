@@ -81,6 +81,8 @@ export default function fetcingFactory (endpoint, params, id) {
             return getPersonalConversations(params, endpoint);
         case Types.endpoints.SEND_MESSAGE:
             return sendMessage(params, endpoint);
+        case Types.endpoints.CREATE_CONVERSATION:
+            return createConversation(params, endpoint);
     }
 }
 
@@ -438,6 +440,17 @@ function getPersonalConversations(params, endpoint) {
 }
 
 function sendMessage(params, endpoint) {
+    return fetch(API + endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + Cookies.get("Bearer")
+        },
+        body: params
+    })
+}
+
+function createConversation(params, endpoint) {
     return fetch(API + endpoint, {
         method: "POST",
         headers: {

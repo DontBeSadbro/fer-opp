@@ -1,11 +1,12 @@
 import React from "react";
 import {Card} from "antd";
-import {Col} from "react-bootstrap";
+import {Col, Modal} from "react-bootstrap";
 import fetcingFactory from "../../Utils/external";
 import { endpoints } from "../../Utils/Types";
 import ConversationsView from "./ConversationView";
 import { Button } from "react-bootstrap";
 import MessagesView from "./MessagesView";
+import CreateConversation from "./CreateConversation";
 
 export default class Chat extends React.Component {
     constructor(props) {
@@ -55,6 +56,7 @@ export default class Chat extends React.Component {
                 } else {
                     this.setState({conversationList: []})
                 }
+                this.setState({showCreateConversationModal: false})
             }
         )
     }
@@ -65,10 +67,19 @@ export default class Chat extends React.Component {
     render() {
         const createButton = () => {
             return (
-                <Button onClick = {() => this.showCreateConversationModal}> Create conversation </Button>
+                <Button onClick = {() => this.setState({showCreateConversationModal: true})}> Create conversation </Button>
             )
         }
         return (
+            <React.Fragment>
+            <Modal show = {this.state.showCreateConversationModal} animation = {false}>
+            <Modal.Body>
+                <CreateConversation updateConversation = {this.getData}/>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="danger" onClick = {()=> this.setState({showCreateConversationModal: false})}> Cancel </Button>
+            </Modal.Footer>
+            </Modal>
             <Card style = {{width: 1200}}title = {createButton()}>
                 <Col md={6}>
                     {<ConversationsView updateParent = {this.receiveConversation} list = {this.state.conversationList}/>
@@ -87,6 +98,7 @@ export default class Chat extends React.Component {
                 }
                 </Col>
             </Card>
+            </React.Fragment>
         )
     }
 }

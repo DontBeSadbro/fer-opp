@@ -34,7 +34,8 @@ export const endpoints = {
     GET_MUSICIAN_OCASSION: "/musicians/show/occasions/",
     EDIT_MUSICIAN: "/musicians/edit/",
     GET_PERSONAL_CONVERSATIONS: "/conversations/get/personal",
-    SEND_MESSAGE: "/conversations/send/person"
+    SEND_MESSAGE: "/conversations/send/person",
+    CREATE_CONVERSATION: "/conversations/create"
     /*TO DO: ostali endpointi*/
 }
 
